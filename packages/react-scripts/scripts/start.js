@@ -272,6 +272,9 @@ function runDevServer(host, port, protocol) {
     https: protocol === "https",
     host: host,
     overlay: false,
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    }
   });
 
   // Our custom middleware proxies requests to /index.html or a remote API.
