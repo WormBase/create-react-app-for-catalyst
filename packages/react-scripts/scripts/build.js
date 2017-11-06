@@ -130,6 +130,39 @@ function printErrors(summary, errors) {
   });
 }
 
+// for backward compatibility
+// add symlink main.min.css to main.[hash].css
+// add symlink wormbase.min.js to main.[hash].js
+function symlinkAssets(stats) {
+  var assets = stats.toJson().assets;
+
+  // add symlink main.min.css
+  var mainCssAsset = assets.filter(asset => /main\.\w+\.css$/.test(asset.name));
+  if (mainCssAsset.length === 1) {
+    var cssTarget = paths.appBuild + '/' + mainCssAsset[0].name;
+    var cssSymlink = paths.appBuild + '/static/css/main.min.css';
+    fs.symlinkSync(path.relative(path.dirname(cssSymlink), cssTarget), cssSymlink);
+    console.log('symlink for ' + chalk.cyan('main.min.css') + ' is added');
+  } else {
+    var jsTarget = paths.appBuild + '/' + mainJsAsset[0].name;
+    var jsSymlink = paths.appBuild + '/static/js/wormbase.min.js';
+    fs.symlinkSync(path.relative(path.dirname(jsSymlink), jsTarget), jsSymlink);
+    printErrors('Only 1 main.[hash].css is expected', mainJsAsset);
+    process.exit(1);
+  }
+
+  // add symlink wormbase.min.js
+  var mainJsAsset = assets.filter(asset => /main\.\w+\.js$/.test(asset.name));
+  if (mainJsAsset.length === 1) {
+    fs.symlinkSync(paths.appBuild + '/' + mainJsAsset[0].name, paths.appBuild + '/static/js/wormbase.min.js');
+    console.log('symlink for ' + chalk.cyan('wormbase.min.js') + ' is added');
+  } else {
+    printErrors('Only 1 main.[hash].js is expected', mainJsAsset);
+    process.exit(1);
+  }
+  console.log();
+}
+
 // Create the production build and print the deployment instructions.
 function build(previousSizeMap) {
   console.log('Creating an optimized production build...');
@@ -156,6 +189,8 @@ function build(previousSizeMap) {
     console.log();
     printFileSizes(stats, previousSizeMap);
     console.log();
+
+    symlinkAssets(stats);
 
     var openCommand = process.platform === 'win32' ? 'start' : 'open';
     var appPackage  = require(paths.appPackageJson);
