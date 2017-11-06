@@ -164,6 +164,22 @@ module.exports = {
           cacheDirectory: true
         }
       },
+      {
+        test: /wormbase\.js$/,
+        include: paths.appSrcLegacy,
+        loader: 'babel-loader',
+        options: {
+          // @remove-on-eject-begin
+          babelrc: false,
+          presets: [require.resolve('babel-preset-react-app')],
+          plugins: [require.resolve('babel-plugin-transform-remove-strict-mode')],
+          // @remove-on-eject-end
+          // This is a feature of `babel-loader` for webpack (not Babel itself).
+          // It enables caching results in ./node_modules/.cache/babel-loader/
+          // directory for faster rebuilds.
+          cacheDirectory: true
+        }
+      },
       // "postcss" loader applies autoprefixer to our CSS.
       // "css" loader resolves paths in CSS and adds assets as dependencies.
       // "style" loader turns CSS into JS modules that inject <style> tags.
