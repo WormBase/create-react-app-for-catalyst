@@ -1,5 +1,8 @@
 {
-  "name": "react-scripts-wb-catalyst",
+  "name": "@wormbase/react-scripts-for-catalyst",
+  "config": {
+    "access": "public"
+  },
   "version": "0.9.0",
   "description": "Configuration and scripts for Create React App.",
   "repository": "facebookincubator/create-react-app",
