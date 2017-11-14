@@ -166,6 +166,17 @@ module.exports = {
         },
         // @remove-on-eject-end
       },
+      {
+        test: /wormbase\.js$/,
+        include: paths.appSrcLegacy,
+        loader: 'babel-loader',
+        // @remove-on-eject-begin
+        options: {
+          babelrc: false,
+          presets: [require.resolve('babel-preset-react-app')],
+        },
+        // @remove-on-eject-end
+      },
       // The notation here is somewhat confusing.
       // "postcss" loader applies autoprefixer to our CSS.
       // "css" loader resolves paths in CSS and adds assets as dependencies.
