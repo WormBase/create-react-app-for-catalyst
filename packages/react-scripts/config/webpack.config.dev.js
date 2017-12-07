@@ -224,7 +224,45 @@ module.exports = {
       // In production, we use a plugin to extract that CSS to a file, but
       // in development "style" loader enables hot editing of CSS.
       {
+        test: [/root\/css\/main\.css$/, /root\/css\/jquery-ui\.min\.css$/],
+        include: paths.appSrcLegacy,
+        // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
+        loader: ExtractTextPlugin.extract(Object.assign({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: require.resolve('css-loader'),
+              options: {
+                importLoaders: 1,
+                root: '..',
+              },
+            },
+            {
+              loader: require.resolve('postcss-loader'),
+              options: {
+                // Necessary for external CSS imports to work
+                // https://github.com/facebookincubator/create-react-app/issues/2677
+                ident: 'postcss',
+                plugins: () => [
+                  require('postcss-flexbugs-fixes'),
+                  autoprefixer({
+                    browsers: [
+                      '>1%',
+                      'last 4 versions',
+                      'Firefox ESR',
+                      'not ie < 9', // React doesn't support IE8 anyway
+                    ],
+                    flexbox: 'no-2009',
+                  }),
+                ],
+              },
+            },
+          ],
+        }, {}))
+      },
+      {
         test: /\.css$/,
+        include: paths.appSrc,
         // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
         loader: ExtractTextPlugin.extract(Object.assign({
           fallback: 'style-loader',
