@@ -205,7 +205,7 @@ module.exports = {
       {
         test: /wormbase\.js$/,
         include: paths.appSrcLegacy,
-        loader: 'babel-loader',
+        loader: require.resolve('babel-loader'),
         options: {
           // @remove-on-eject-begin
           babelrc: false,
