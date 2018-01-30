@@ -331,7 +331,7 @@ module.exports = {
         removeEmptyAttributes: true,
         removeStyleLinkTypeAttributes: true,
         keepClosingSlash: true,
-        minifyJS: true,
+        minifyJS: false,
         minifyCSS: true,
         minifyURLs: true,
       },
