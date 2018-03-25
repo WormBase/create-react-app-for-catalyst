@@ -224,8 +224,8 @@ module.exports = {
       // In production, we use a plugin to extract that CSS to a file, but
       // in development "style" loader enables hot editing of CSS.
       {
-        test: /\.css$/,
-        exclude: paths.appSrcLegacy,
+        test: [/root\/css\/main\.css$/, /root\/css\/jquery-ui\.min\.css$/],
+        include: paths.appSrcLegacy,
         // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
         loader: ExtractTextPlugin.extract(Object.assign({
           fallback: 'style-loader',
@@ -234,6 +234,7 @@ module.exports = {
               loader: require.resolve('css-loader'),
               options: {
                 importLoaders: 1,
+                root: '..',
               },
             },
             {
@@ -270,7 +271,6 @@ module.exports = {
               loader: require.resolve('css-loader'),
               options: {
                 importLoaders: 1,
-                root: '..',
               },
             },
             {
