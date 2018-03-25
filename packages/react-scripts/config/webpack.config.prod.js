@@ -267,7 +267,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        include: paths.appSrc,
+        include: [paths.appSrc, paths.appNodeModules],
         loader: ExtractTextPlugin.extract(
           Object.assign(
             {

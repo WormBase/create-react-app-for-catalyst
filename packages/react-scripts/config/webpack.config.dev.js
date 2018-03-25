@@ -261,7 +261,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        include: paths.appSrcLegacy,
+        include: [paths.appSrc, paths.appNodeModules],
         // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
         loader: ExtractTextPlugin.extract(Object.assign({
           fallback: 'style-loader',
