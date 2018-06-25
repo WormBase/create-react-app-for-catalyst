@@ -203,7 +203,7 @@ module.exports = {
         },
       },
       {
-        test: /wormbase\.js$/,
+        test: [/wormbase\.js$/, /\.js$/],
         include: paths.appSrcLegacy,
         loader: require.resolve('babel-loader'),
         options: {
@@ -224,7 +224,7 @@ module.exports = {
       // In production, we use a plugin to extract that CSS to a file, but
       // in development "style" loader enables hot editing of CSS.
       {
-        test: [/root\/css\/main\.css$/, /root\/css\/jquery-ui\.min\.css$/],
+        test: [/root\/css\/main\.css$/, /root\/css\/jquery-ui\.min\.css$/, /js\/.*\.css$/],
         include: paths.appSrcLegacy,
         // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
         loader: ExtractTextPlugin.extract(Object.assign({

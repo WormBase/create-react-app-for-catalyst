@@ -199,7 +199,7 @@ module.exports = {
         },
       },
       {
-        test: /wormbase\.js$/,
+        test: [/wormbase\.js$/, /\.js$/],
         include: paths.appSrcLegacy,
         loader: require.resolve('babel-loader'),
         // @remove-on-eject-begin
@@ -223,7 +223,7 @@ module.exports = {
       // use the "style" loader inside the async code so CSS from them won't be
       // in the main CSS file.
       {
-        test: [/root\/css\/main\.css$/, /root\/css\/jquery-ui\.min\.css$/],
+        test: [/root\/css\/main\.css$/, /root\/css\/jquery-ui\.min\.css$/, /js\/.*\.css$/],
         include: paths.appSrcLegacy,
         loader: ExtractTextPlugin.extract(
           Object.assign(
@@ -413,5 +413,8 @@ module.exports = {
     fs: 'empty',
     net: 'empty',
     tls: 'empty',
+  },
+  externals: {
+    jquery: 'jQuery'
   },
 };
