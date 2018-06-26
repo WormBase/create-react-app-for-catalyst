@@ -199,7 +199,7 @@ module.exports = {
         },
       },
       {
-        test: [/wormbase\.js$/, /\.js$/],
+        test: /wormbase\.js$/,
         include: paths.appSrcLegacy,
         loader: require.resolve('babel-loader'),
         // @remove-on-eject-begin
@@ -209,6 +209,20 @@ module.exports = {
           plugins: [require.resolve('babel-plugin-transform-remove-strict-mode')],
         },
         // @remove-on-eject-end
+      },
+      {
+        test: /^(wormbase)\.js$/,
+        include: paths.appSrcLegacy,
+        loader: require.resolve('script-loader'),
+        options: {
+          // @remove-on-eject-begin
+          babelrc: false,
+          // @remove-on-eject-end
+          // This is a feature of `babel-loader` for webpack (not Babel itself).
+          // It enables caching results in ./node_modules/.cache/babel-loader/
+          // directory for faster rebuilds.
+          cacheDirectory: true
+        }
       },
       // The notation here is somewhat confusing.
       // "postcss" loader applies autoprefixer to our CSS.

@@ -203,7 +203,7 @@ module.exports = {
         },
       },
       {
-        test: [/wormbase\.js$/, /\.js$/],
+        test: /wormbase\.js$/,
         include: paths.appSrcLegacy,
         loader: require.resolve('babel-loader'),
         options: {
@@ -211,6 +211,20 @@ module.exports = {
           babelrc: false,
           presets: [require.resolve('babel-preset-react-app')],
           plugins: [require.resolve('babel-plugin-transform-remove-strict-mode')],
+          // @remove-on-eject-end
+          // This is a feature of `babel-loader` for webpack (not Babel itself).
+          // It enables caching results in ./node_modules/.cache/babel-loader/
+          // directory for faster rebuilds.
+          cacheDirectory: true
+        }
+      },
+      {
+        test: /^(wormbase)\.js$/,
+        include: paths.appSrcLegacy,
+        loader: require.resolve('script-loader'),
+        options: {
+          // @remove-on-eject-begin
+          babelrc: false,
           // @remove-on-eject-end
           // This is a feature of `babel-loader` for webpack (not Babel itself).
           // It enables caching results in ./node_modules/.cache/babel-loader/
