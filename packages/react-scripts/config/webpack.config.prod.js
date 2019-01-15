@@ -292,7 +292,7 @@ module.exports = {
                   options: {
                     importLoaders: 1,
                     minimize: false,
-                    sourceMap: true,
+                    sourceMap: false,
                   },
                 },
                 {
